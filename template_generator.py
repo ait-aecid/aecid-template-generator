@@ -1,3 +1,5 @@
+"""This is an implementation of the Equalmerge algorithm for character-based log template generation."""
+
 import warnings
 import sys
 import timeit
@@ -266,6 +268,18 @@ def printM(M):
 	
 	return
 
+def getTemplate(t):
+        result = ''
+        if t.stringlist != []:
+                if t.wildcardends[0] == 1:
+                        result += "§"
+                result += "§".join(t.stringlist)
+                if t.wildcardends[1] == 1:
+                        result += "§" + "\n"
+                else:
+                        result += "\n"
+        return result
+
 # main program
 fobj1 = open(template_config.input_file, "r")
 fobj2 = open(template_config.output_file, "w")
@@ -286,25 +300,22 @@ for line in fobj1:
 
 	# initialise a new template
 	elif line[0:len(template_config.new_representative_pretext)] == template_config.new_representative_pretext:
-		# Write the last template to the file if neccessary
-		if t.stringlist != []:
-			if t.wildcardends[0] == 1:
-				fobj2.write("[*]")
-			fobj2.write("[*]".join(t.stringlist))
-			if t.wildcardends[1] == 1:
-				fobj2.write("[*]"+"\n")
-			else:
-				fobj2.write("\n")
+		fobj2.write(getTemplate(t)) # write the last template to the file if neccessary
 
 		t2 = timeit.default_timer()
 		if tmp != 0:
 			print("Cluster", tmp, "finished after:", str(t2-t3)[0:8], "s, total runtime:", str(t2-t1)[0:8], "s")
 
 		if len_t != -1: # add the calculated similarities
-			tmp2[0].append(len("".join(t.stringlist))/(len_t/tmp3)*100)
-			tmp2[1].append(t.euclen()/(len_t/tmp3)*100)
-			tmp2[2].append((tmp4+1)/tmp3*100)
+			s1 = len("".join(t.stringlist))/(len_t/tmp3)*100
+			s2 = t.euclen()/(len_t/tmp3)*100
+			idle = (tmp4+1)/tmp3*100
+			tmp2[0].append(s1)
+			tmp2[1].append(s2)
+			tmp2[2].append(idle)
 			tmp4 = 0
+			if template_config.print_simscores == True:
+				fobj2.write("  Sim1 = " + str(s1)[0:5] + "%, Sim2 = " + str(s2)[0:5] + "%, Stability Reached = " + str(idle)[0:5] + "%\n")
 		t3 = t2
 		tmp += 1
 		# if the line is to long initialise the template as "Length of line more than 1850"
@@ -335,26 +346,26 @@ for line in fobj1:
 				len_t += len(line[template_config.number_skipped_characters:-1]) # similarity
 				tmp3 += 1
 
-# write the last template to the file if neccessary
-if t.stringlist != []:
-	if t.wildcardends[0] == 1:
-		fobj2.write("[*]")
-	fobj2.write("[*]".join(t.stringlist))
-	if t.wildcardends[1] == 1:
-		fobj2.write("[*]"+"\n")
-	else:
-		fobj2.write("\n")
+fobj2.write(getTemplate(t)) # write the last template to the file if neccessary
 
 t2 = timeit.default_timer()
+
+if len_t != -1: # add the calculated similarities
+	s1 = len("".join(t.stringlist))/(len_t/tmp3)*100
+	s2 = t.euclen()/(len_t/tmp3)*100
+	idle = (tmp4+1)/tmp3*100
+	tmp2[0].append(s1)
+	tmp2[1].append(s2)
+	tmp2[2].append(idle)
+	tmp4 = 0
+	if template_config.print_simscores == True:
+		fobj2.write("  Sim1 = " + str(s1)[0:5] + "%, Sim2 = " + str(s2)[0:5] + "%, Stability Reached = " + str(idle)[0:5] + "%\n")
+
 fobj2.write("\n\nTotal time: "+str(t2-t1)[0:8]+"s\n")
 print("Cluster",tmp,"finished after:", str(t2-t3)[0:8], "s, total runtime:", str(t2-t1)[0:8], "s")
 
-if len_t != -1: # add the calculated similarities
-	tmp2[0].append(len("".join(t.stringlist))/(len_t/tmp3)*100)
-	tmp2[1].append(t.euclen()/(len_t/tmp3)*100)
-	tmp2[2].append((tmp4+1)/tmp3*100)
-
 # write the calculated similarities
-fobj2.write("Similarity 1: "+str(mean(tmp2[0]))[0:8]+"%\n")
+fobj2.write("\nOverall scores:\n")
+fobj2.write("Sim-Score: "+str(mean(tmp2[0]))[0:8]+"%\n")
 fobj2.write("Similarity 2: "+str(mean(tmp2[1]))[0:8]+"%\n")
-fobj2.write("Idle state after: "+str(mean(tmp2[2]))[0:8]+"%\n")
+fobj2.write("Template stable after processing "+str(mean(tmp2[2]))[0:8]+"%\n")
