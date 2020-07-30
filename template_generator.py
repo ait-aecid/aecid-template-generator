@@ -292,8 +292,15 @@ tmp3 = 1
 len_t = -1
 tmp4 = 0 # settle down for idle state
 cluster = [] # lines in cluster
+first_line = True
 
 for line in fobj1:
+	if first_line == True:
+		if line.startswith(template_config.new_representative_pretext) == False:
+			print("First line did not start with \"" + template_config.new_representative_pretext + "\", make sure to use pre-clustered log data! Aborting...")
+			sys.exit()
+		first_line = False
+
 	# ignore empty lines and lines which start with substrings of the ignore_line_pretext list
 	if line == "\n" or any(line[0:len(template_config.ignore_line_pretext[i])] == template_config.ignore_line_pretext[i] for i in range(len(template_config.ignore_line_pretext))):
 		continue
