@@ -344,13 +344,17 @@ for line in fobj1:
 		if t.stringlist == ["Length of line more than 1850"]:
 			continue
 		else:
-			if line[template_config.number_skipped_characters:-1] not in cluster:
-				cluster.append(line[template_config.number_skipped_characters:-1]) # lines in cluster
+			if template_config.number_skipped_characters < 1:
+				l = line
+			else:
+				l = line[template_config.number_skipped_characters:-1]
+			if l not in cluster:
+				cluster.append(l) # lines in cluster
 				tmp_str = t.stringlist.copy()
-				t = fit(t, line[template_config.number_skipped_characters:-1])
+				t = fit(t, l)
 				if tmp_str != t.stringlist: # idle state
 					tmp4 = tmp3
-				len_t += len(line[template_config.number_skipped_characters:-1]) # similarity
+				len_t += len(l) # similarity
 				tmp3 += 1
 
 fobj2.write(getTemplate(t)) # write the last template to the file if neccessary
