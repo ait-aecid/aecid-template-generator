@@ -4,12 +4,11 @@
 § queue run: pid=§
 1j§-000§-§ <= root@mail§.§o§ U=root P=local S=§
 1j§-000§-§ => /var/mail/mail <root@mail§.§o§> R=mail4root T=address_file
-1j§-000§-§ <= §@mail.§.com U=www-data P=local S=§ id=20200§.Horde.§@mail.§.com
 
 
-Total time: 1.191715s
+Total time: 1.102967s
 
 Overall scores:
-Sim-Score: 63.44896%
-Euclidean-Score: 40.11088%
-Template stable after processing 45.75203%
+Sim-Score: 65.19547%
+Euclidean-Score: 42.89208%
+Template stable after processing 38.84656%
