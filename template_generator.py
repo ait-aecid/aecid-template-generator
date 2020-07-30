@@ -322,7 +322,7 @@ for line in fobj1:
 			tmp2[2].append(idle)
 			tmp4 = 0
 			if template_config.print_simscores == True:
-				fobj2.write("  Sim1 = " + str(s1)[0:5] + "%, Sim2 = " + str(s2)[0:5] + "%, Stability Reached = " + str(idle)[0:5] + "%\n\n")
+				fobj2.write("  Sim-Score = " + str(s1)[0:5] + "%, Euclidean-Score = " + str(s2)[0:5] + "%, Stability Reached = " + str(idle)[0:5] + "%\n\n")
 		t3 = t2
 		tmp += 1
 		# if the line is to long initialise the template as "Length of line more than 1850"
@@ -370,7 +370,7 @@ if len_t != -1: # add the calculated similarities
 	tmp2[2].append(idle)
 	tmp4 = 0
 	if template_config.print_simscores == True:
-		fobj2.write("  Sim1 = " + str(s1)[0:5] + "%, Sim2 = " + str(s2)[0:5] + "%, Stability Reached = " + str(idle)[0:5] + "%\n")
+		fobj2.write("  Sim-Score = " + str(s1)[0:5] + "%, Euclidean-Score = " + str(s2)[0:5] + "%, Stability Reached = " + str(idle)[0:5] + "%\n")
 
 fobj2.write("\n\nTotal time: "+str(t2-t1)[0:8]+"s\n")
 print("Cluster",tmp,"finished after:", str(t2-t3)[0:8], "s, total runtime:", str(t2-t1)[0:8], "s")
@@ -378,5 +378,5 @@ print("Cluster",tmp,"finished after:", str(t2-t3)[0:8], "s, total runtime:", str
 # write the calculated similarities
 fobj2.write("\nOverall scores:\n")
 fobj2.write("Sim-Score: "+str(mean(tmp2[0]))[0:8]+"%\n")
-fobj2.write("Similarity 2: "+str(mean(tmp2[1]))[0:8]+"%\n")
+fobj2.write("Euclidean-Score: "+str(mean(tmp2[1]))[0:8]+"%\n")
 fobj2.write("Template stable after processing "+str(mean(tmp2[2]))[0:8]+"%\n")
