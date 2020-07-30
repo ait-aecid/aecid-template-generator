@@ -322,7 +322,7 @@ for line in fobj1:
 			tmp2[2].append(idle)
 			tmp4 = 0
 			if template_config.print_simscores == True:
-				fobj2.write("  Sim1 = " + str(s1)[0:5] + "%, Sim2 = " + str(s2)[0:5] + "%, Stability Reached = " + str(idle)[0:5] + "%\n")
+				fobj2.write("  Sim1 = " + str(s1)[0:5] + "%, Sim2 = " + str(s2)[0:5] + "%, Stability Reached = " + str(idle)[0:5] + "%\n\n")
 		t3 = t2
 		tmp += 1
 		# if the line is to long initialise the template as "Length of line more than 1850"
